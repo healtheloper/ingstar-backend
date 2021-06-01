@@ -1,14 +1,14 @@
-import bcrypt, { hash } from "bcrypt";
-import client from "../../client";
+import * as bcrypt from "bcrypt";
+import { Resolvers } from "../../type";
 import { protectedResolver } from "../users.utils";
 
-export default {
+const resolvers: Resolvers = {
   Mutation: {
     editProfile: protectedResolver(
       async (
         _,
         { firstName, lastName, username, email, password: newPassword },
-        { loggedInUser }
+        { loggedInUser, client }
       ) => {
         try {
           let hashPassword = undefined;
@@ -45,3 +45,5 @@ export default {
     ),
   },
 };
+
+export default resolvers;
