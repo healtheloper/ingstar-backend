@@ -1,13 +1,12 @@
 import * as jwt from "jsonwebtoken";
-import client from "../client";
 import { Resolver } from "../type";
 
-export const getUser = async (token) => {
+export const getUser = async (token, client) => {
   try {
-    const verifiedToken: any = await jwt.verify(token, process.env.PRIVATE_KEY);
-    if ("id" in verifiedToken) {
+    const decoded = jwt.verify(token, process.env.PRIVATE_KEY);
+    if (typeof decoded === "object" && decoded.hasOwnProperty("id")) {
       const user = await client.user.findUnique({
-        where: { id: verifiedToken["id"] },
+        where: { id: decoded["id"] },
       });
       if (user) {
         return user;

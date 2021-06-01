@@ -13,7 +13,10 @@ const resolvers: Resolvers = {
           where: { OR: [{ email }, { username }] },
         });
         if (existUser) {
-          console.log("error");
+          return {
+            ok: false,
+            error: "Already Exists",
+          };
         }
         const hashPassword = await bcrypt.hash(password, 10);
         const user = await client.user.create({

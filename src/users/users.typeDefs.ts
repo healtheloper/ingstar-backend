@@ -1,8 +1,10 @@
 import { gql } from "apollo-server";
 
 export default gql`
-  type CoreOutput {
+  type FollowUserResult {
     ok: Boolean!
+    users: [User]
+    totalPages: Int!
     error: String
   }
   type User {
@@ -13,5 +15,7 @@ export default gql`
     email: String!
     createdAt: String!
     updatedAt: String!
+    following(page: Int): FollowUserResult!
+    followers(page: Int): FollowUserResult!
   }
 `;
