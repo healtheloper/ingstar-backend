@@ -14,16 +14,4 @@ export default gql`
     createdAt: String!
     updatedAt: String!
   }
-  type Mutation {
-    createAccount(
-      firstName: String!
-      lastName: String
-      username: String!
-      email: String!
-      password: String!
-    ): CoreOutput
-  }
-  type Query {
-    seeProfile(username: String!): User
-  }
 `;
